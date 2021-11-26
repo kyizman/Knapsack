@@ -16,10 +16,10 @@ namespace Knapsack
 
 
 
-        public items(int x)
+        public items(int x,int y)
         {
             weight = x;
-            value = x;
+            value = y;
         }
     }
 }
