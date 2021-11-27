@@ -106,71 +106,18 @@ namespace Knapsack
 
                 Random random = new Random();
 
-                for(int u=0; u<fixformutationarray.Length;u++)
+                while (population.Count < itemslist.Count-counter-1)
                 {
-                    
-                    if(u > fixformutationarray.Length-1 && fixformutationarray[u]!=null && fixformutationarray[u-1]!=null)
+                    for (int u = 0; u < fixformutationarray.Length; u++)
                     {
-                        gene1 = bestitems[u].Substring(0, itemslist.Count/2);
-                        gene2 = bestitems[u-1].Substring(itemslist.Count / 2,itemslist.Count-1);
 
-                        if (random.Next(0, 10) > 5)
+                        if (u > fixformutationarray.Length - 1 && fixformutationarray[u] != null && fixformutationarray[u - 1] != null)
                         {
+                            gene1 = bestitems[u].Substring(0, itemslist.Count / 2);
+                            gene2 = bestitems[u - 1].Substring(itemslist.Count / 2, itemslist.Count - 1);
 
 
-                            population.Add(gene1 + gene2);
-                        }
-                        else
-                        {
-                            if (random.Next(0, 10) > 5)
-                            {
-                                char[] temp1 = gene1.ToCharArray();
-                                int selection = random.Next(0, temp1.Length);
-                                if(temp1[selection] =='1')
-                                {
-                                    temp1[selection] = '0';
-                                }
-                                else
-                                {
-                                    temp1[selection] = '1';
-                                }
 
-                                gene1 = temp1.ToString();
-                                population.Add(gene1 + gene2);
-                            }
-
-                            else
-                            {
-                                char[] temp2 = gene2.ToCharArray();
-                                int selection = random.Next(0, temp2.Length);
-                                if (temp2[selection] == '1')
-                                {
-                                    temp2[selection] = '0';
-                                }
-                                else
-                                {
-                                    temp2[selection] = '1';
-                                }
-
-                                gene2 = temp2.ToString();
-                                population.Add(gene1 + gene2);
-                            }
-                        }
-
-                    }
-
-                    else if (fixformutationarray[u] != null && fixformutationarray[u +1] != null)
-                    {
-                        gene1 = fixformutationarray[u].Substring(0, itemslist.Count / 2);
-                        gene2 = fixformutationarray[u + 1].Substring((itemslist.Count/2)+1);
-                        if (random.Next(0, 10) > 5)
-                        {
-
-
-                            population.Add(gene1 + gene2);
-                        }
-                        else
-                        {
                             if (random.Next(0, 10) > 5)
                             {
                                 char[] temp1 = gene1.ToCharArray();
@@ -184,8 +131,9 @@ namespace Knapsack
                                     temp1[selection] = '1';
                                 }
 
-                                gene1 = temp1.ToString();
-                                population.Add(gene1 + gene2);
+                                string gen1temp = new string(temp1);
+
+                                population.Add(gen1temp + gene2);
                             }
 
                             else
@@ -201,13 +149,69 @@ namespace Knapsack
                                     temp2[selection] = '1';
                                 }
 
-                                gene2 = temp2.ToString();
-                                population.Add(gene1 + gene2);
+                                string gen2temp = new string(temp2);
+
+                                population.Add(gene1 + gen2temp);
+                            }
+                        }
+
+
+
+                        else if (fixformutationarray[u] != null && fixformutationarray[u + 1] != null)
+                        {
+                            gene1 = fixformutationarray[u].Substring(0, itemslist.Count / 2);
+                            gene2 = fixformutationarray[u + 1].Substring((itemslist.Count / 2) + 1);
+
+                            {
+                                if (random.Next(0, 10) > 5)
+                                {
+                                    char[] temp1 = gene1.ToCharArray();
+                                    int selection = random.Next(0, temp1.Length);
+                                    if (temp1[selection] == '1')
+                                    {
+                                        temp1[selection] = '0';
+                                    }
+                                    else
+                                    {
+                                        temp1[selection] = '1';
+                                    }
+
+                                    gene1 = "";
+                                    foreach(char item in temp1)
+                                    {
+                                        gene1 += item;
+                                    }
+
+
+                                    string gen1temp = new string(temp1);
+
+                                    population.Add(gen1temp + gene2);
+
+                                }
+
+                                else
+                                {
+                                    char[] temp2 = gene2.ToCharArray();
+                                    int selection = random.Next(0, temp2.Length);
+                                    if (temp2[selection] == '1')
+                                    {
+                                        temp2[selection] = '0';
+                                    }
+                                    else
+                                    {
+                                        temp2[selection] = '1';
+                                    }
+
+                                   
+
+                                    string gen2temp = new string(temp2);
+                                    
+                                    population.Add(gene1 + gen2temp);
+                                }
                             }
                         }
                     }
                 }
-
 
                 for (int y =0; y <bestitems.Length;y++)
                 {
